@@ -1,0 +1,80 @@
+#ctheader {
+	padding: 0;
+}
+
+#ctmain {
+	padding: 10px;
+}
+
+a {
+	color:  blue;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+.infobubble {
+	padding: 10px;
+	max-width: 50vw;
+	font-size: 120%;
+	background: white;
+	border: 1px solid black;
+}
+
+p > iframe { /* yt vid... */
+	height: 400px;
+}
+
+.ctform.stepper select {
+	font-size: 160%;
+	margin-bottom: 10px;
+}
+
+.ctform.stepper button,
+.ctform.stepper input:not([type="radio"]),
+.ctform.stepper .curstep {
+	font-size: 160%;
+}
+.ctform.stepper .curstep :not(.checkTree) div:not(.tabbed) {
+	padding: 10px;
+}
+.ctform.stepper .curstep input[type="radio"],
+.ctform.stepper .curstep input[type="checkbox"] {
+	margin-right: 10px;
+}
+.ctform.stepper .curstep input:not([type="radio"]):not([type="checkbox"]) {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.ctform.stepper .curstep .fieldList button {
+	width: auto !important;
+}
+
+@media (min-width: 601px) {
+	#ctll {
+		position: relative;
+	}
+	.user_linx {
+		position: absolute;
+		bottom: -18px;
+		left: 0;
+	}
+	.admin_linx {
+		position: absolute;
+		bottom: -18px;
+		left: 60px;
+	}
+}
+@media (max-width: 600px) {
+	.hamburgize #ctll {
+		width: 200px;
+		right: -200px;
+		font-size: 200%;
+		background: white;
+	}
+
+	.hamburgize #ctll a {
+		padding: 10px;
+	}
+}

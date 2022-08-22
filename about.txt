@@ -1,0 +1,1 @@
+This package provides the interfaces, database models, request handlers, and format conversion logic for a web application that generates the legal documents associated with trusts.
