@@ -200,7 +200,7 @@ cat.start = {
 						cb: function(t) {
 							CT.modal.modal([
 								CT.dom.div("Your Trust!", "bigger bold"),
-								core.util.trust(t)
+								cat.util.trust(t)
 							], null, { innerClass: "h1 w1 centered" });
 						}
 					})
