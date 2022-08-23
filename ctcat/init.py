@@ -4,7 +4,7 @@ tn = os.path.join("templates", "notary")
 dirs = ["documents", "templates", tn]
 copies = {
     "templates": ["ABC Church Trust v3.docx", "abc.html"],
-    tn: ["*"]
+    tn: "*"
 }
 syms = {
     ".": ["_cat.py"],
