@@ -18,7 +18,7 @@ def notarize(txt, state):
 def buildNotaries(srcdir):
 	for f in os.listdir(srcdir):
 		fn = f.split(".").pop(0)
-		s = fn.split("-").pop(0)
+		s = fn.split("-Notary").pop(0).replace("-", " ")
 		pan(os.path.join(srcdir, fn), srcex="docx", opath=stateNotary(s))
 
 def branchVal(obj, path=[]):
