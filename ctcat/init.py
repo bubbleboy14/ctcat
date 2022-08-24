@@ -1,7 +1,7 @@
 import os
 
 tn = os.path.join("templates", "notary")
-dirs = ["documents", "templates", tn]
+dirs = ["documents", "templates", tn, os.path.join("documents", "trust")]
 copies = {
     "templates": ["ABC Church Trust v3.docx", "abc.html"],
     tn: "*"
