@@ -30,7 +30,7 @@ cat.util = {
 		return CT.dom.flex([
 			CT.hover.auto(CT.dom.link(t.name, function() {
 				CT.storage.set("trust2edit", t);
-				location = "/start.html";
+				location = "/cat/start.html";
 			}, null, "biggest"), "click to edit"),
 			CT.dom.div(t.created, "bigger smallpadded"),
 			cat.util.downloaders(t),
