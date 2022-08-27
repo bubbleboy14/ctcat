@@ -69,7 +69,7 @@ def build(tempname, injections):
 		else:
 			print("unimplemented - skipping:", k, v)
 	write(notarize(txt, injections["state"]), hpath)
-	sed(pan(fpath, "tex"), "{{NEWPAGE}}", "\\newpage")
+	sed(pan(fpath, "tex"), "NEWPAGE", "\\newpage")
 	sed(hpath, "NEWPAGE", "<br><br><br><br>")
 	pan(fpath, "pdf", "tex")
 	pan(fpath, "docx", "tex")
