@@ -12,7 +12,7 @@ class Trust(db.TimeStampedBase):
 	iterations = db.String(repeated=True) # timestamps
 
 def buildTrust(injections, member=None, key=None, template="trust"):
-	from util import build
+	from ctcat.util import build
 	tdata = build(template, injections)
 	trust = key and db.get(key) or Trust() # assume trust template for now
 	trust.name = tdata["name"]
