@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from cantools.util import cmd, log, read, write
+from cantools.util import cmd, log, read, write, sed
 from model import db, settings, Trust
 
 def pan(fp, ex=None, srcex="html", opath=None):
@@ -69,8 +69,10 @@ def build(tempname, injections):
 		else:
 			print("unimplemented - skipping:", k, v)
 	write(notarize(txt, injections["state"]), hpath)
-	pan(fpath, "pdf")
-	pan(fpath, "docx")
+	sed(pan(fpath, "tex"), "NEWPAGE", "\\newpage")
+	sed(hpath, "NEWPAGE", "<br><br><br><br>")
+	pan(fpath, "pdf", "tex")
+	pan(fpath, "docx", "tex")
 #	ex = { "html": "/%s"%(hpath,) }
 #	ex["pdf"] = "/%s"%(pan(fpath, "pdf"),)
 #	ex["docx"] = "/%s"%(pan(fpath, "docx"),)
