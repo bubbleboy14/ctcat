@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from cantools.web import respond, succeed, fail, local, cgi_get, send_file
-from cantools.util import read
+from cantools.util import read, log
 from model import settings, buildTrust
 
 def response():
@@ -9,7 +9,9 @@ def response():
 	if action == "doc":
 		ts = cgi_get("ts") / 1000
 		sts = datetime.now().timestamp()
-		if abs(ts - sts) > 2:
+		tsd = ts - sts
+		log("/_cat doc ts check: %s v %s : diff %s"%(ts, sts, tsd))
+		if abs(tsd) > 2000:
 			fail()
 		send_file(read(os.path.join("documents",
 			cgi_get("template", default="trust", choices=["trust"]), # more eventually...
