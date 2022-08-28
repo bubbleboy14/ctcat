@@ -31,7 +31,7 @@ def alignNotary(hpath, dpath):
 	hlines = read(hpath, lines=True)
 	doc = docx.Document(dpath)
 	paz = [p.paragraph_format.alignment for p in doc.paragraphs if p.text]
-	for n in range(len(hlines)):
+	for n in range(min(len(hlines), len(paz))):
 		pa = paz[n]
 		if pa:
 			hlines[n] = hlines[n].replace("<p>", '<p align="%s">'%(pa == 1 and "center" or "right",))
