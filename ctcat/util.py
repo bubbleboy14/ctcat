@@ -13,7 +13,7 @@ def stateNotary(state):
 
 def notarize(txt, state):
 	print("notarize()", state)
-	return "%s<br><br>%s"%(txt, read(stateNotary(state)))
+	return "%s\n\n\nNEWPAGE\n\n\n%s"%(txt, read(stateNotary(state)))
 
 def buildNotaries(srcdir):
 	for f in os.listdir(srcdir):
