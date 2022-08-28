@@ -1,7 +1,10 @@
 import os
 from datetime import datetime
 from cantools.util import cmd, log, read, write, sed
-from model import db, settings, Trust
+try:
+	from model import db, settings, Trust
+except:
+	log("running w/o model")
 
 DXPB = """```{=openxml}
 <w:p>
@@ -23,11 +26,25 @@ def notarize(txt, state):
 	print("notarize()", state)
 	return "%s\n\nNEWPAGE\n\n%s"%(txt, read(stateNotary(state)))
 
+def alignNotary(hpath, dpath):
+	import docx
+	hlines = read(hpath, lines=True)
+	doc = docx.Document(dpath)
+	paz = [p.paragraph_format.alignment for p in doc.paragraphs if p.text]
+	for n in range(len(hlines)):
+		pa = paz[n]
+		if pa:
+			hlines[n] = hlines[n].replace("<p>", '<p align="%s">'%(pa == 1 and "center" or "right",))
+	write("".join(hlines), hpath)
+
 def buildNotaries(srcdir):
 	for f in os.listdir(srcdir):
 		fn = f.split(".").pop(0)
 		s = fn.split("-Notary").pop(0).replace("-", " ")
-		pan(os.path.join(srcdir, fn), srcex="docx", opath=stateNotary(s))
+		srcp = os.path.join(srcdir, fn)
+		op = stateNotary(s)
+		pan(srcp, srcex="docx", opath=op)
+		alignNotary(op, "%s.docx"%(srcp,))
 
 def branchVal(obj, path=[]):
 	if type(obj) == dict:
