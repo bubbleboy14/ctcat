@@ -3,6 +3,14 @@ from datetime import datetime
 from cantools.util import cmd, log, read, write, sed
 from model import db, settings, Trust
 
+DXPB = """```{=openxml}
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+```"""
+
 def pan(fp, ex=None, srcex="html", opath=None):
 	opath = opath or "%s.%s"%(fp, ex)
 	cmd('pandoc "%s.%s" -o "%s"'%(fp, srcex, opath))
@@ -13,7 +21,7 @@ def stateNotary(state):
 
 def notarize(txt, state):
 	print("notarize()", state)
-	return "%s\n\n\nNEWPAGE\n\n\n%s"%(txt, read(stateNotary(state)))
+	return "%s\n\nNEWPAGE\n\n%s"%(txt, read(stateNotary(state)))
 
 def buildNotaries(srcdir):
 	for f in os.listdir(srcdir):
@@ -69,9 +77,11 @@ def build(tempname, injections):
 		else:
 			print("unimplemented - skipping:", k, v)
 	write(notarize(txt, injections["state"]), hpath)
-	sed(pan(fpath, "md"), "NEWPAGE", "\\newpage")
+	mpath = pan(fpath, "md")
 	sed(hpath, "NEWPAGE", "<br><br><br><br>")
+	sed(mpath, "NEWPAGE", "\\newpage")
 	pan(fpath, "pdf", "md")
+	sed(mpath, "\\newpage", DXPB)
 	pan(fpath, "docx", "md")
 #	ex = { "html": "/%s"%(hpath,) }
 #	ex["pdf"] = "/%s"%(pan(fpath, "pdf"),)
