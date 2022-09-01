@@ -164,18 +164,40 @@ cat.start = {
 		}
 	},
 	questionnaire: function(trust2edit) {
+		var buttz = [
+			CT.hover.auto(CT.dom.link("tell me more", cat.start.tellmore,
+				null, "block"), "what's this all about?", true),
+			CT.hover.auto(CT.dom.link("do it yourself!", function() {
+				CT.modal.modal(CT.dom.div([
+					CT.dom.iframe("/templates/abc.html", "w1 h600p"),
+					CT.dom.link("Download docx Version", null,
+						"/templates/ABC%20Church%20Trust%20v3.docx", "bigger bold")
+				], "centered"));
+			}, null, "block"), "Download Trust Template", true)
+		];
+		var rebuild = function(opts) {
+			opts ? CT.log("opts: " + opts) : CT.log("trust2edit: " + trust2edit);
+			CT.net.post({
+				path: "/_cat",
+				spinner: true,
+				params: {
+					action: "build",
+					injections: opts,
+					member: user.core.get("key"),
+					key: trust2edit && (trust2edit.name == opts.name) && trust2edit.key
+				},
+				cb: function(t) {
+					CT.modal.modal([
+						CT.dom.div("Your Trust!", "bigger bold"),
+						cat.util.trust(t)
+					], null, { innerClass: "h1 w1 centered" });
+				}
+			})
+		};
+		if (trust2edit && user.core.get("admin"))
+			buttz.push(CT.dom.link("rebuild", () => rebuild(trust2edit.injections), null, "block"));
 		CT.dom.setMain([
-			CT.dom.div([
-				CT.hover.auto(CT.dom.link("tell me more", cat.start.tellmore,
-					null, "block"), "what's this all about?", true),
-				CT.hover.auto(CT.dom.link("do it yourself!", function() {
-					CT.modal.modal(CT.dom.div([
-						CT.dom.iframe("/templates/abc.html", "w1 h600p"),
-						CT.dom.link("Download docx Version", null,
-							"/templates/ABC%20Church%20Trust%20v3.docx", "bigger bold")
-					], "centered"));
-				}, null, "block"), "Download Trust Template", true)
-			], "right"),
+			CT.dom.div(buttz, "right"),
 			CT.layout.form({
 				step: true,
 				labels: true,
@@ -186,25 +208,7 @@ cat.start = {
 				items: cat.start._.items(),
 				values: trust2edit && trust2edit.injections,
 				onStep: (vals) => CT.storage.set("WIP", { injections: vals }),
-				cb: function(opts) {
-					CT.log(opts);
-					CT.net.post({
-						path: "/_cat",
-						spinner: true,
-						params: {
-							action: "build",
-							injections: opts,
-							member: user.core.get("key"),
-							key: trust2edit && (trust2edit.name == opts.name) && trust2edit.key
-						},
-						cb: function(t) {
-							CT.modal.modal([
-								CT.dom.div("Your Trust!", "bigger bold"),
-								cat.util.trust(t)
-							], null, { innerClass: "h1 w1 centered" });
-						}
-					})
-				}
+				cb: rebuild
 			})
 		]);
 	},
