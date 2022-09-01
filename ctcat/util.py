@@ -96,31 +96,35 @@ def build(tempname, injections):
 			print("unimplemented - skipping:", k, v)
 
 #	strategy = "basic"
-	strategy = "ultra"
-#	strategy = "combo"
+#	strategy = "ultra"
+	strategy = "combo"
 
-	if strategy == "basic":
-		write(notarize(txt, injections["state"]), hpath)
-		mpath = pan(fpath, "md")
-		sed(hpath, "NEWPAGE", "<br><br><br><br>")
-		sed(mpath, "NEWPAGE", "\\newpage")
-	elif strategy == "ultra":
-		mpath = "%s.md"%(fpath,)
+	if strategy == "combo":
 		htxt = notarize(txt, injections["state"])
+		# html
 		write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
+		#docx
+		mpath = pan(fpath, "md")
+		sed(mpath, "NEWPAGE", DXPB)
+		pan(fpath, "docx", "md")
+		# pdf
 		write(h2l(htxt), mpath)
-
-
-	pan(fpath, "pdf", "md")
-
-	sed(mpath, "\\newpage", DXPB)
-
-	pan(fpath, "docx", "md")
-#	ex = { "html": "/%s"%(hpath,) }
-#	ex["pdf"] = "/%s"%(pan(fpath, "pdf"),)
-#	ex["docx"] = "/%s"%(pan(fpath, "docx"),)
+		pan(fpath, "pdf", "md")
+	else:
+		if strategy == "basic":
+			write(notarize(txt, injections["state"]), hpath)
+			mpath = pan(fpath, "md")
+			sed(hpath, "NEWPAGE", "<br><br><br><br>")
+			sed(mpath, "NEWPAGE", "\\newpage")
+		elif strategy == "ultra":
+			mpath = "%s.md"%(fpath,)
+			htxt = notarize(txt, injections["state"])
+			write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
+			write(h2l(htxt), mpath)
+		pan(fpath, "pdf", "md")
+		sed(mpath, "\\newpage", DXPB)
+		pan(fpath, "docx", "md")
 	return {
-#		"exports": ex,
 		"name": name,
 		"ts": ts
 	}
