@@ -100,11 +100,12 @@ def build(tempname, injections):
 	strategy = "combo"
 
 	if strategy == "combo":
-		htxt = notarize(txt, injections["state"])
 		# html
-		write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
-		#docx
+		htxt = notarize(txt, injections["state"])
+		write(htxt, hpath)
 		mpath = pan(fpath, "md")
+		sed(hpath, "NEWPAGE", "<br><br><br><br>")
+		#docx
 		sed(mpath, "NEWPAGE", DXPB)
 		pan(fpath, "docx", "md")
 		# pdf
