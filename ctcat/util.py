@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from cantools.util import cmd, log, read, write, sed
+from ctman.util import h2l
 try:
 	from model import db, settings, Trust
 except:
@@ -93,12 +94,27 @@ def build(tempname, injections):
 					txt = first + third
 		else:
 			print("unimplemented - skipping:", k, v)
-	write(notarize(txt, injections["state"]), hpath)
-	mpath = pan(fpath, "md")
-	sed(hpath, "NEWPAGE", "<br><br><br><br>")
-	sed(mpath, "NEWPAGE", "\\newpage")
+
+	strategy = "basic"
+
+	if strategy == "basic":
+		write(notarize(txt, injections["state"]), hpath)
+		mpath = pan(fpath, "md")
+		sed(hpath, "NEWPAGE", "<br><br><br><br>")
+		sed(mpath, "NEWPAGE", "\\newpage")
+	else:
+		mpath = "%s.md"%(fpath,)
+		mbpath = "%s-base.md"%(fpath,)
+		htxt = notarize(txt, injections["state"])
+		mbase = h2l(htxt.replace("NEWPAGE", "\\newpage").replace("<br>", " \\\\ "))
+		write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
+		write(mbase, mpath)
+		write(mbase, mbpath)
+
 	pan(fpath, "pdf", "md")
+
 	sed(mpath, "\\newpage", DXPB)
+
 	pan(fpath, "docx", "md")
 #	ex = { "html": "/%s"%(hpath,) }
 #	ex["pdf"] = "/%s"%(pan(fpath, "pdf"),)
