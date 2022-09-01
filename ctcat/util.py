@@ -95,21 +95,21 @@ def build(tempname, injections):
 		else:
 			print("unimplemented - skipping:", k, v)
 
-	strategy = "basic"
+#	strategy = "basic"
+	strategy = "ultra"
+#	strategy = "combo"
 
 	if strategy == "basic":
 		write(notarize(txt, injections["state"]), hpath)
 		mpath = pan(fpath, "md")
 		sed(hpath, "NEWPAGE", "<br><br><br><br>")
 		sed(mpath, "NEWPAGE", "\\newpage")
-	else:
+	elif strategy == "ultra":
 		mpath = "%s.md"%(fpath,)
-		mbpath = "%s-base.md"%(fpath,)
 		htxt = notarize(txt, injections["state"])
-		mbase = h2l(htxt.replace("NEWPAGE", "\\newpage").replace("<br>", " \\\\ "))
 		write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
-		write(mbase, mpath)
-		write(mbase, mbpath)
+		write(h2l(htxt), mpath)
+
 
 	pan(fpath, "pdf", "md")
 
