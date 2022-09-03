@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from cantools.util import cmd, log, read, write, sed
-from ctman.util import h2l
+from ctman.util import h2l, h2x
 try:
 	from model import db, settings, Trust
 except:
@@ -13,7 +13,7 @@ DXPB = """```{=openxml}
     <w:br w:type="page"/>
   </w:r>
 </w:p>
-```"""
+```""" # TODO : remove
 
 def pan(fp, ex=None, srcex="html", opath=None):
 	opath = opath or "%s.%s"%(fp, ex)
@@ -106,7 +106,12 @@ def build(tempname, injections):
 		mpath = pan(fpath, "md")
 		sed(hpath, "NEWPAGE", "<br><br><br><br>")
 		#docx
-		sed(mpath, "NEWPAGE", DXPB)
+		morig = read(mpath)
+#		dtxt = morig.replace("NEWPAGE", DXPB)
+		dtxt = h2x(morig)
+		write(morig, "%s-html.md"%(fpath,)) # for debugging
+		write(dtxt, "%s-docx.md"%(fpath,)) # for debugging
+		write(dtxt, mpath)
 		pan(fpath, "docx", "md")
 		# pdf
 		write(h2l(htxt), mpath)
