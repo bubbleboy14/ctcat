@@ -1,24 +1,11 @@
 import os
 from datetime import datetime
-from cantools.util import cmd, log, read, write, sed
-from ctman.util import h2l, h2x
+from cantools.util import log, read, write, sed
+from ctman.util import h2l, h2x, pan
 try:
 	from model import db, settings, Trust
 except:
 	log("running w/o model")
-
-DXPB = """```{=openxml}
-<w:p>
-  <w:r>
-    <w:br w:type="page"/>
-  </w:r>
-</w:p>
-```""" # TODO : remove
-
-def pan(fp, ex=None, srcex="html", opath=None):
-	opath = opath or "%s.%s"%(fp, ex)
-	cmd('pandoc "%s.%s" -o "%s"'%(fp, srcex, opath))
-	return opath
 
 def stateNotary(state):
 	return os.path.join("templates", "notary", "%s.html"%(state,))
