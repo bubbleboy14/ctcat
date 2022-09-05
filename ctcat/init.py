@@ -20,4 +20,9 @@ routes = {
     "/templates": "templates",
     "/documents": "documents"
 }
+cfg = {
+    "build": {
+        "debug": True
+    }
+}
 requires = ["ctuser"]

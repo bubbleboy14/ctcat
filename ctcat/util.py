@@ -6,8 +6,12 @@ try:
 	from model import db, settings, Trust
 except:
 	log("running w/o model")
+from cantools import config
 
-DEBUG = True
+ccb = config.ctcat.build
+if type(ccb.debug) is not bool:
+	ccb.update("debug", ccb.debug == "True")
+DEBUG = ccb.debug
 
 def stateNotary(state):
 	return os.path.join("templates", "notary", "%s.html"%(state,))
