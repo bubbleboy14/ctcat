@@ -7,6 +7,8 @@ try:
 except:
 	log("running w/o model")
 
+DEBUG = True
+
 def stateNotary(state):
 	return os.path.join("templates", "notary", "%s.html"%(state,))
 
@@ -87,22 +89,18 @@ def build(tempname, injections):
 	strategy = "combo"
 
 	if strategy == "combo":
+		def h2(dest, text):
+			write(text, mpath)
+			DEBUG and write(text, "%s-%s.md"%(fpath, dest))
+			pan(fpath, dest, "md")
+
 		# html
 		htxt = notarize(txt, injections["state"])
-		write(htxt, hpath)
-		mpath = pan(fpath, "md")
-		sed(hpath, "NEWPAGE", "<br><br><br><br>")
-		#docx
-		morig = read(mpath)
-#		dtxt = morig.replace("NEWPAGE", DXPB)
-		dtxt = h2x(morig)
-		write(morig, "%s-html.md"%(fpath,)) # for debugging
-		write(dtxt, "%s-docx.md"%(fpath,)) # for debugging
-		write(dtxt, mpath)
-		pan(fpath, "docx", "md")
+		write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
 		# pdf
-		write(h2l(htxt), mpath)
-		pan(fpath, "pdf", "md")
+		h2("pdf", h2l(htxt))
+		# docx
+		h2("docx", h2x(htxt))
 	else:
 		if strategy == "basic":
 			write(notarize(txt, injections["state"]), hpath)
