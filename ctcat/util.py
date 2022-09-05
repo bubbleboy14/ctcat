@@ -6,12 +6,14 @@ try:
 	from model import db, settings, Trust
 except:
 	log("running w/o model")
-from cantools import config
-
-ccb = config.ctcat.build
-if type(ccb.debug) is not bool:
-	ccb.update("debug", ccb.debug == "True")
-DEBUG = ccb.debug
+try:
+	from cantools import config
+	ccb = config.ctcat.build
+	if type(ccb.debug) is not bool:
+		ccb.update("debug", ccb.debug == "True")
+	DEBUG = ccb.debug
+except:
+	log("running w/o config")
 
 def stateNotary(state):
 	return os.path.join("templates", "notary", "%s.html"%(state,))
@@ -20,15 +22,26 @@ def notarize(txt, state):
 	print("notarize()", state)
 	return "%s\n\nNEWPAGE\n\n%s"%(txt, read(stateNotary(state)))
 
-def alignNotary(hpath, dpath):
+def fixNotary(hpath, dpath):
 	import docx
 	hlines = read(hpath, lines=True)
 	doc = docx.Document(dpath)
-	paz = [p.paragraph_format.alignment for p in doc.paragraphs if p.text]
+	pars = doc.paragraphs
+
+	# realign
+	paz = [p.paragraph_format.alignment for p in pars if p.text]
 	for n in range(min(len(hlines), len(paz))):
 		pa = paz[n]
 		if pa:
 			hlines[n] = hlines[n].replace("<p>", '<p align="%s">'%(pa == 1 and "center" or "right",))
+
+	# inject AlternateContent
+	if pars[2].text == "":
+		print("fixNotary() injecting AlternateContent")
+		b = doc.part.blob.decode()
+		ac = b.split("<mc:AlternateContent>").pop().split("</mc:AlternateContent>").pop(0)
+		hlines[0] = "%s<p>%s</p>\n"%(hlines[0], ac.split("<w:t>").pop().split("</w:t>").pop(0))
+
 	write("".join(hlines), hpath)
 
 def buildNotaries(srcdir):
@@ -38,7 +51,7 @@ def buildNotaries(srcdir):
 		srcp = os.path.join(srcdir, fn)
 		op = stateNotary(s)
 		pan(srcp, srcex="docx", opath=op)
-		alignNotary(op, "%s.docx"%(srcp,))
+		fixNotary(op, "%s.docx"%(srcp,))
 
 def branchVal(obj, path=[]):
 	if type(obj) == dict:
