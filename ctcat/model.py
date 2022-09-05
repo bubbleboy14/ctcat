@@ -17,7 +17,7 @@ def buildTrust(injections, member=None, key=None, template="trust"):
 	trust = key and db.get(key) or Trust() # assume trust template for now
 	trust.name = tdata["name"]
 	trust.injections = injections
-	trust.iterations = [tdata["ts"]] + trust.iterations
+	trust.iterations = [tdata["ts"]] + (trust.iterations or [])
 	if member:
 		trust.member = member
 	trust.put()
