@@ -97,6 +97,7 @@ def build(tempname, injections):
 
 		# html
 		htxt = notarize(txt, injections["state"])
+		DEBUG and write(htxt, "%s-orig.html"%(fpath,))
 		write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
 		# pdf
 		h2("pdf", h2l(htxt))
