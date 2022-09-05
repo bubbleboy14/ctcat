@@ -88,6 +88,7 @@ def build(tempname, injections):
 #	strategy = "ultra"
 	strategy = "combo"
 
+	mpath = "%s.md"%(fpath,)
 	if strategy == "combo":
 		def h2(dest, text):
 			write(text, mpath)
@@ -104,11 +105,10 @@ def build(tempname, injections):
 	else:
 		if strategy == "basic":
 			write(notarize(txt, injections["state"]), hpath)
-			mpath = pan(fpath, "md")
+			pan(fpath, "md")
 			sed(hpath, "NEWPAGE", "<br><br><br><br>")
 			sed(mpath, "NEWPAGE", "\\newpage")
 		elif strategy == "ultra":
-			mpath = "%s.md"%(fpath,)
 			htxt = notarize(txt, injections["state"])
 			write(htxt.replace("NEWPAGE", "<br><br><br><br>"), hpath)
 			write(h2l(htxt), mpath)
