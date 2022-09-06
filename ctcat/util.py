@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from cantools.util import log, read, write, sed
-from ctman.util import h2l, h2x, pan
+from ctman.util import h2l, h2x, pan, panflag
 try:
 	from model import db, settings, Trust
 except:
@@ -14,6 +14,8 @@ try:
 	DEBUG = ccb.debug
 except:
 	log("running w/o config")
+
+panflag("md", "pdf", "f", "markdown-fancy_lists")
 
 def stateNotary(state):
 	return os.path.join("templates", "notary", "%s.html"%(state,))
