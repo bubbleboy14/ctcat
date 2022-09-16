@@ -164,7 +164,7 @@ cat.start = {
 		}
 	},
 	questionnaire: function(trust2edit) {
-		var buttz = [
+		var _ = cat.start._, buttz = [
 			CT.hover.auto(CT.dom.link("tell me more", cat.start.tellmore,
 				null, "block"), "what's this all about?", true),
 			CT.hover.auto(CT.dom.link("do it yourself!", function() {
@@ -196,7 +196,7 @@ cat.start = {
 		};
 		if (trust2edit && user.core.get("admin"))
 			buttz.push(CT.dom.link("rebuild", () => rebuild(trust2edit.injections), null, "block"));
-		CT.dom.setMain([
+		CT.dom.setContent(_.node, [
 			CT.dom.div(buttz, "right"),
 			CT.layout.form({
 				step: true,
@@ -205,7 +205,7 @@ cat.start = {
 				backButton: true,
 				backButtClass: "right",
 				buttClass: "automarg block",
-				items: cat.start._.items(),
+				items: _.items(),
 				values: trust2edit && trust2edit.injections,
 				onStep: (vals) => CT.storage.set("WIP", { injections: vals }),
 				cb: rebuild
@@ -233,13 +233,18 @@ cat.start = {
 		], "kidvp"));
 	},
 	intro: function() {
-		CT.dom.setMain([
+		CT.dom.setContent(cat.start._.node, [
 			CT.dom.div("Introduction", "big bold"),
 			"Welcome to our easy questionnaire (about 15 minutes) to help you launch a new journey: forming a new church or replacing your 501c3 church with a traditional church that works best for your congregation.  Any and all Christian denominations and groups are supported here.  Same for non-denominational. Indeed, denomination does not affect your trust at all.  Your private church governance remains private and separate from the trust, so you’re free and flexible to advance your Christian mission in your complete discretion.",
 			CT.dom.button("continue", () => cat.start.questionnaire(), "automarg block")
 		]);
 	},
 	load: function() {
+		var _ = cat.start._, cscfg = core.config.ctcat.start,
+			n = _.node = CT.dom.div(null, cscfg.fclass), cont = [n];
+		if (cscfg.above)
+			cont.unshift(cscfg.above());
+		CT.dom.setMain(cont)
 		var trust2edit = CT.storage.get("trust2edit"), wip = CT.storage.get("WIP");
 		if (trust2edit) {
 			CT.storage.set("trust2edit");
