@@ -1,4 +1,11 @@
 cat.util = {
+	doityourself: function() {
+		CT.modal.modal(CT.dom.div([
+			CT.dom.iframe("/templates/abc.html", "w1 h600p"),
+			CT.dom.link("Download docx Version", null,
+				"/templates/ABC%20Church%20Trust%20v3.docx", "bigger bold")
+		], "centered"));
+	},
 	downloader: function(t, ts, ext) {
 		var fname = t.name + " " + ts + "." + ext;
 		return CT.file.downloader({

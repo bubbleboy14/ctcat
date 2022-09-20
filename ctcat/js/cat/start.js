@@ -167,13 +167,8 @@ cat.start = {
 		var _ = cat.start._, buttz = [
 			CT.hover.auto(CT.dom.link("tell me more", cat.start.tellmore,
 				null, "block"), "what's this all about?", true),
-			CT.hover.auto(CT.dom.link("do it yourself!", function() {
-				CT.modal.modal(CT.dom.div([
-					CT.dom.iframe("/templates/abc.html", "w1 h600p"),
-					CT.dom.link("Download docx Version", null,
-						"/templates/ABC%20Church%20Trust%20v3.docx", "bigger bold")
-				], "centered"));
-			}, null, "block"), "Download Trust Template", true)
+			CT.hover.auto(CT.dom.link("do it yourself!", cat.util.doityourself,
+				null, "block"), "Download Trust Template", true)
 		];
 		var rebuild = function(opts) {
 			opts ? CT.log("opts: " + opts) : CT.log("trust2edit: " + trust2edit);
