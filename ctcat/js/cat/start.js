@@ -204,7 +204,7 @@ cat.start = {
 				button: true,
 				backButton: true,
 				backButtClass: "right",
-				buttClass: "automarg block",
+				buttClass: core.config.ctcat.start.bclass,
 				items: _.items(),
 				values: trust2edit && trust2edit.injections,
 				onStep: (vals) => CT.storage.set("WIP", { injections: vals }),
@@ -236,12 +236,13 @@ cat.start = {
 		CT.dom.setContent(cat.start._.node, [
 			CT.dom.div("Introduction", "big bold"),
 			"Welcome to our easy questionnaire (about 15 minutes) to help you launch a new journey: forming a new church or replacing your 501c3 church with a traditional church that works best for your congregation.  Any and all Christian denominations and groups are supported here.  Same for non-denominational. Indeed, denomination does not affect your trust at all.  Your private church governance remains private and separate from the trust, so you’re free and flexible to advance your Christian mission in your complete discretion.",
-			CT.dom.button("continue", () => cat.start.questionnaire(), "automarg block")
+			CT.dom.button("Get Started", () => cat.start.questionnaire(), core.config.ctcat.start.bclass)
 		]);
 	},
 	load: function() {
 		var _ = cat.start._, cscfg = core.config.ctcat.start,
-			n = _.node = CT.dom.div(null, cscfg.fclass), cont = [n];
+			n = _.node = CT.dom.div(null, cscfg.fclass), cont = [n],
+			go = () => cscfg.intro ? cat.start.intro() : cat.start.questionnaire();
 		if (cscfg.above)
 			cont.unshift(cscfg.above());
 		CT.dom.setMain(cont)
@@ -250,14 +251,14 @@ cat.start = {
 			CT.storage.set("trust2edit");
 			return cat.start.questionnaire(trust2edit);
 		}
-		if (!wip) return cat.start.intro();
+		if (!wip) return go();
 		CT.storage.set("WIP");
 		CT.modal.choice({
 			prompt: "You've already started filling this out. Would you like to pick up where you left off or start from scratch?",
 			data: ["Load saved progress", "Start from scratch"],
 			cb: function(resp) {
 				if (resp == "Start from scratch")
-					cat.start.intro();
+					go();
 				else
 					cat.start.questionnaire(wip);
 			}
