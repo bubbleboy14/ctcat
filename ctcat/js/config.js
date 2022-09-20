@@ -1,6 +1,8 @@
 {
 	"start": {
+		"bclass": "automarg block",
 		"fclass": "p50",
-		"above": null
+		"above": null,
+		"intro": true
 	}
 }
