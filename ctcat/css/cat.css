@@ -27,7 +27,7 @@ p > iframe { /* yt vid... */
 	margin-bottom: 10px;
 }
 
-.ctform.stepper button,
+/*.ctform.stepper button,*/
 .ctform.stepper input:not([type="radio"]),
 .ctform.stepper .curstep {
 	font-size: 160%;
