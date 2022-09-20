@@ -198,10 +198,12 @@ cat.start = {
 				labels: true,
 				button: true,
 				backButton: true,
+				bname: "Get Started",
 				backButtClass: "right",
 				buttClass: core.config.ctcat.start.bclass,
 				items: _.items(),
 				values: trust2edit && trust2edit.injections,
+				onStarted: (n) => CT.dom.setContent(n.butt, "Continue"),
 				onStep: (vals) => CT.storage.set("WIP", { injections: vals }),
 				cb: rebuild
 			})
