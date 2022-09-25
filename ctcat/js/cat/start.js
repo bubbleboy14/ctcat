@@ -3,7 +3,7 @@ cat.start = {
 		items: function() {
 			return [{
 				name: "structure",
-				label: CT.hover.auto("Which word best describes your organization’s religious structure?",
+				label: CT.hover.auto("Which word best describes your organization's religious structure?",
 					"Your answer will be utilized simply for convenience -- to identify your church or assembly by shorthand.  You can change this answer later if you like (same for any answers, anything can be changed at any time).", true),
 				style: "radio",
 				options: [
