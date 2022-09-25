@@ -27,13 +27,16 @@ p > iframe { /* yt vid... */
 	margin-bottom: 10px;
 }
 
-/*.ctform.stepper button,*/
-.ctform.stepper input:not([type="radio"]),
-.ctform.stepper .curstep {
+/*.ctform.stepper button,
+.ctform.stepper .curstep,*/
+.ctform.stepper input:not([type="radio"]) {
 	font-size: 160%;
 }
 .ctform.stepper .curstep :not(.checkTree) div:not(.tabbed) {
-	padding: 10px;
+	padding: 10px 0;
+}
+.ctform.stepper .curstep input[type="radio"] {
+	transform: scale(1.8) translateY(-1px);
 }
 .ctform.stepper .curstep input[type="radio"],
 .ctform.stepper .curstep input[type="checkbox"] {
@@ -41,6 +44,7 @@ p > iframe { /* yt vid... */
 }
 .ctform.stepper .curstep input:not([type="radio"]):not([type="checkbox"]) {
 	width: 100%;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 .ctform.stepper .curstep .fieldList button {
