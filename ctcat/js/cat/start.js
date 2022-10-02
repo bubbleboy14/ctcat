@@ -1,10 +1,11 @@
 cat.start = {
 	_: {
 		items: function() {
+			var hovi = core.config.ctcat.start.hovicon;
 			return [{
 				name: "structure",
 				label: CT.hover.auto("Which word best describes your organization's religious structure?",
-					"Your answer will be utilized simply for convenience -- to identify your church or assembly by shorthand.  You can change this answer later if you like (same for any answers, anything can be changed at any time).", true),
+					"Your answer will be utilized simply for convenience -- to identify your church or assembly by shorthand.  You can change this answer later if you like (same for any answers, anything can be changed at any time).", hovi),
 				style: "radio",
 				options: [
 					"Church",
@@ -19,18 +20,18 @@ cat.start = {
 				labeller: (oz) => "What is the name of your " + oz.structure + "?"
 			}, {
 				name: "trust",
-				label: CT.hover.auto("What name would you like for your trust?", "Choose any Trust name you like, such as Town River Fellowship Assembly Trust. It’s a good idea to put the word “Trust” at the end of the name. When you open a bank account, the account will have this name.", true),
+				label: CT.hover.auto("What name would you like for your trust?", "Choose any Trust name you like, such as Town River Fellowship Assembly Trust. It’s a good idea to put the word “Trust” at the end of the name. When you open a bank account, the account will have this name.", hovi),
 			}, {
 				name: "founders",
-				label: CT.hover.auto("Please name the person or persons who will be signing this trust as the founders of the organization", "Your answer will be the person or persons creating the trust and therefore signing it.  Usually, this will be just the pastor of the church/assembly. But it could also be the Chairman of the Board, or other individuals who are founders. It’s fine to name just one founder, or name multiple founders if you prefer.", true),
+				label: CT.hover.auto("Please name the person or persons who will be signing this trust as the founders of the organization", "Your answer will be the person or persons creating the trust and therefore signing it.  Usually, this will be just the pastor of the church/assembly. But it could also be the Chairman of the Board, or other individuals who are founders. It’s fine to name just one founder, or name multiple founders if you prefer.", hovi),
 				style: "fieldList"
 			}, {
 				name: "trustees",
-				label: CT.hover.auto("Who would you like to be the initial trustee or trustees of the trust?", "The trustee is the primary person responsible for trust administration, such as the Pastor.  The ideal qualities in a trustee: (a) involved in day to day management of the church, (b) responsible with money and accounting.  Usually it is easiest to just name one trustee rather than multiple co-trustees.", true),
+				label: CT.hover.auto("Who would you like to be the initial trustee or trustees of the trust?", "The trustee is the primary person responsible for trust administration, such as the Pastor.  The ideal qualities in a trustee: (a) involved in day to day management of the church, (b) responsible with money and accounting.  Usually it is easiest to just name one trustee rather than multiple co-trustees.", hovi),
 				style: "fieldList"
 			}, {
 				name: "beneficiary",
-				label: CT.hover.auto("Who will be the beneficiary of the trust?", "The beneficiary of the trust is considered the true owner of the trust assets.", true),
+				label: CT.hover.auto("Who will be the beneficiary of the trust?", "The beneficiary of the trust is considered the true owner of the trust assets.", hovi),
 				style: "radio",
 				options: function(oz) {
 					return [{
@@ -51,7 +52,7 @@ cat.start = {
 				}
 			}, {
 				name: "admin",
-				labeller: (oz) => CT.hover.auto("Who in your " + oz.structure + " will have the power to appoint a trustee and remove a trustee?", "This is a very important power, because whoever has the power to appoint a trustee and remove a trustee can ultimately decide how trust assets are managed.", true),
+				labeller: (oz) => CT.hover.auto("Who in your " + oz.structure + " will have the power to appoint a trustee and remove a trustee?", "This is a very important power, because whoever has the power to appoint a trustee and remove a trustee can ultimately decide how trust assets are managed.", hovi),
 				style: "radio",
 				options: function(oz) {
 					return [{
@@ -70,7 +71,7 @@ cat.start = {
 				}
 			}, {
 				name: "votes_to_entrust",
-				labeller: (oz) => CT.hover.auto("Specify the percentage of votes needed for your " + oz.admin + " to appoint a trustee or remove a trustee?", "Select the minimum vote percentage you’d like to appoint a trustee or remove a trustee. For example, imagine your 7-person Board is replacing a trustee. At the Board meeting, only 5 board members attended that morning.  If you select “Majority of Voters” and “Present”, then only 3 yes votes are required to approve the trustee replacement.  But if you select “3/4 of voters” and “Eligible”, then 6 votes would be necessary to approve the trustee replacement.", true),
+				labeller: (oz) => CT.hover.auto("Specify the percentage of votes needed for your " + oz.admin + " to appoint a trustee or remove a trustee?", "Select the minimum vote percentage you’d like to appoint a trustee or remove a trustee. For example, imagine your 7-person Board is replacing a trustee. At the Board meeting, only 5 board members attended that morning.  If you select “Majority of Voters” and “Present”, then only 3 yes votes are required to approve the trustee replacement.  But if you select “3/4 of voters” and “Eligible”, then 6 votes would be necessary to approve the trustee replacement.", hovi),
 				style: "checkTree",
 				single: true,
 				structure: [{
@@ -87,7 +88,7 @@ cat.start = {
 				}]
 			}, {
 				name: "amender",
-				labeller: (oz) => CT.hover.auto("Who in your " + oz.structure + " will have the power to amend the trust or revoke the trust?", "This is a very important power, because whoever has the power to change the trust can ultimately decide how trust assets are managed.", true),
+				labeller: (oz) => CT.hover.auto("Who in your " + oz.structure + " will have the power to amend the trust or revoke the trust?", "This is a very important power, because whoever has the power to change the trust can ultimately decide how trust assets are managed.", hovi),
 				style: "radio",
 				options: function(oz) {
 					return [{
@@ -105,7 +106,7 @@ cat.start = {
 				}
 			}, {
 				name: "votes_to_amend",
-				labeller: (oz) => CT.hover.auto("Specify the amount of votes needed for your " + oz.amender + " to amend the trust or revoke the trust?", "Select the minimum vote percentage you’d like to change the trust. For example, imagine your 7-person Board is cancelling the trust. At the Board meeting, only 5 board members attended that evening.  If you select “Majority of Voters” and “Present”, then only 3 yes votes are required to cancel the trust.  But if you select “3/4 of voters” and “Eligible”, then 6 votes would be necessary to cancel the trust.", true),
+				labeller: (oz) => CT.hover.auto("Specify the amount of votes needed for your " + oz.amender + " to amend the trust or revoke the trust?", "Select the minimum vote percentage you’d like to change the trust. For example, imagine your 7-person Board is cancelling the trust. At the Board meeting, only 5 board members attended that evening.  If you select “Majority of Voters” and “Present”, then only 3 yes votes are required to cancel the trust.  But if you select “3/4 of voters” and “Eligible”, then 6 votes would be necessary to cancel the trust.", hovi),
 				style: "checkTree",
 				single: true,
 				structure: [{
@@ -130,8 +131,8 @@ cat.start = {
 				label: [
 					CT.dom.span("Please provide a list of assets owned by the church."),
 					CT.dom.pad(),
-					CT.hover.auto(CT.dom.span("(For any assets owned only partially by the church, it is helpful to indicate the % owned by the church)"), "For example, “The church’s 50% ownership interest in 53 Loaves Avenue, Fishes, CA 94526”", true),
-					CT.hover.auto("insert any asset(s)", "For example, an asset would be “Checking Account with Main Street Credit Union”.  Another example would be, “any real estate interests owned by ABC Church, such as 53 Loaves Avenue, Fishes, CA 94526”.  Another example is “all of the personal property such as furniture, AV equipment, and office materials located at 12 Apostles Court, Logos, CA 94527”", true)
+					CT.hover.auto(CT.dom.span("(For any assets owned only partially by the church, it is helpful to indicate the % owned by the church)"), "For example, “The church’s 50% ownership interest in 53 Loaves Avenue, Fishes, CA 94526”"),
+					CT.hover.auto("insert any asset(s)", "For example, an asset would be “Checking Account with Main Street Credit Union”.  Another example would be, “any real estate interests owned by ABC Church, such as 53 Loaves Avenue, Fishes, CA 94526”.  Another example is “all of the personal property such as furniture, AV equipment, and office materials located at 12 Apostles Court, Logos, CA 94527”")
 				],
 				style: "fieldList"
 			}, {
