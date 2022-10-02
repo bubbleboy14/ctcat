@@ -228,7 +228,7 @@ cat.start = {
 				CT.dom.span("Legal.", "bold"),
 				CT.dom.pad(),
 				CT.dom.span("At the completion of this questionnaire, this website will auto generate for you a common law trust based on your answers.  Legally, a common law trust is a relationship, where your named trustee (i.e., Pastor, Board, or church leadership) manages money and property for the benefit of your church, to advance your church's nonprofit Christian mission.  All employees, contractors, and the like can still get paid working for the church; the word \"nonprofit\" does not require a 501c3 or any government filings.  Rather, 'nonprofit' just means the purpose of the church is primarily charitable or otherwise organized to advance your Christian mission.  Indeed, it is okay and good for the church to make profit, as those profits can be invested anytime toward any charitable Christian use.  Simple and traditional, with little or no government forms or filings required.  For information on taxes and accounting, click here.")
-			]\"		], "kidvp10 small"));
+			]], "kidvp10 small"));
 	},
 	intro: function() {
 		CT.dom.setContent(cat.start._.node, [
