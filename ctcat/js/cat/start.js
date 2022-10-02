@@ -242,6 +242,8 @@ cat.start = {
 			go = () => cscfg.intro ? cat.start.intro() : cat.start.questionnaire();
 		if (cscfg.above)
 			cont.unshift(cscfg.above());
+		if (cscfg.below)
+			cont.push(cscfg.below());
 		CT.dom.setMain(cont)
 		var trust2edit = CT.storage.get("trust2edit"), wip = CT.storage.get("WIP");
 		if (trust2edit) {
