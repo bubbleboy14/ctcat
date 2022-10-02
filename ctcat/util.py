@@ -84,6 +84,10 @@ def build(tempname, injections):
 			vlen = len(v)
 			if vlen == 1:
 				v = v[0]
+			elif k == "witnesses" and vlen == 2:
+				txt = txt.replace("[witnesses][0]",
+					"<b>%s</b>"%(v[0],)).replace("[witnesses][1]", "<b>%s</b>"%(v[1],))
+				continue
 			elif vlen:
 				v = ", ".join(v[:-1]) + " and %s"%(v[-1],)
 		elif type(v) == dict:
