@@ -28,10 +28,10 @@ p > iframe { /* yt vid... */
 }
 
 /*.ctform.stepper button,
-.ctform.stepper .curstep,*/
+.ctform.stepper .curstep,
 .ctform.stepper input:not([type="radio"]) {
 	font-size: 160%;
-}
+}*/
 .ctform.stepper .curstep :not(.checkTree) div:not(.tabbed) {
 	padding: 10px 0;
 }
