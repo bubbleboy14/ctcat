@@ -55,7 +55,7 @@ p > iframe { /* yt vid... */
 	#ctll {
 		position: relative;
 	}
-	.user_linx {
+/*	.user_linx {
 		position: absolute;
 		bottom: -18px;
 		left: 0;
@@ -64,7 +64,7 @@ p > iframe { /* yt vid... */
 		position: absolute;
 		bottom: -18px;
 		left: 60px;
-	}
+	}*/
 }
 @media (max-width: 600px) {
 	.hamburgize #ctll {
