@@ -17,7 +17,7 @@ cat.start = {
 				]
 			}, {
 				name: "name",
-				labeller: (oz) => "What is the name of your " + oz.structure + "?"
+				labeller: (oz) => CT.hover.auto("What is the name of your " + oz.structure + "?", "What do you call yourselves?", hovi)
 			}, {
 				name: "trust",
 				label: CT.hover.auto("What name would you like for your trust?", "Choose any Trust name you like, such as Town River Fellowship Assembly Trust. It's a good idea to put the word \"Trust\" at the end of the name. When you open a bank account, the account will have this name.", hovi),
