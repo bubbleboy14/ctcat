@@ -46,9 +46,9 @@ cat.util = {
 				CT.dom.link("delete trust record", function() {
 					var u = user.core.get();
 					confirm("really delete this trust? no takebacks!") && CT.net.post({
-						action: "deltrust",
 						path: "/_cat",
 						params: {
+							action: "deltrust",
 							p: prompt("Please enter your password"),
 							e: u.email,
 							k: u.key,
