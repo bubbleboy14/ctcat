@@ -41,7 +41,25 @@ cat.util = {
 			}, null, "biggest"), "click to edit"),
 			CT.dom.div(t.created, "bigger smallpadded"),
 			cat.util.downloaders(t),
-			CT.dom.link(t.iterations.length + " versions", () => cat.util.versions(t))
+			CT.dom.div([
+				CT.dom.link(t.iterations.length + " versions", () => cat.util.versions(t)),
+				CT.dom.link("delete trust record", function() {
+					var u = user.core.get();
+					confirm("really delete this trust? no takebacks!") && CT.net.post({
+						action: "deltrust",
+						path: "/_cat",
+						params: {
+							p: prompt("Please enter your password"),
+							e: u.email,
+							k: u.key,
+							t: t.key
+						},
+						cb: function() {
+							location = location; // meh
+						}
+					});
+				}, null, "redi block pt10")
+			], "basiclink")
 		], "row jcbetween margined padded bordered round");
 	},
 	trusts: function(tnode) {
