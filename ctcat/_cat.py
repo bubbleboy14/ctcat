@@ -2,10 +2,10 @@ import os
 from datetime import datetime
 from cantools.web import respond, succeed, fail, local, cgi_get, send_file, email_reportees
 from cantools.util import read, log
-from model import settings, buildTrust
+from model import db, settings, buildTrust, getMem
 
 def response():
-	action = cgi_get("action", choices=["doc", "build", "settings", "trust", "contact"])
+	action = cgi_get("action", choices=["doc", "build", "settings", "trust", "contact", "deltrust"])
 	if action == "doc":
 		ts = cgi_get("ts") / 1000
 		sts = datetime.now().timestamp()
@@ -28,6 +28,13 @@ def response():
 	elif action == "contact":
 		email_reportees("CAT Message", "From: %s %s (%s)\n\n%s\n\n%s"%(cgi_get("firstName"),
 			cgi_get("lastName"), cgi_get("email"), cgi_get("subject"), cgi_get("message")))
+	elif action == "deltrust":
+		ukey = cgi_get("k")
+		trust = db.get(cgi_get("t"))
+		if ukey != trust.member.urlsafe():
+			fail()
+		getMem(cgi_get("e"), cgi_get("p"),
+			lambda u : trust.rm(), fail, key=ukey)
 	else:
 		s = settings()
 		if action == "settings":
