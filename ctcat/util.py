@@ -31,7 +31,7 @@ def fixNotary(hpath, dpath):
 	pars = doc.paragraphs
 
 	# realign
-	paz = [p.paragraph_format.alignment for p in pars if p.text]
+	paz = [p.paragraph_format.alignment for p in pars if p.text or p.paragraph_format.alignment]
 	for n in range(min(len(hlines), len(paz))):
 		pa = paz[n]
 		if pa:
