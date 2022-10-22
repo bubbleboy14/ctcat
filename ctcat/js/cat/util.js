@@ -62,11 +62,27 @@ cat.util = {
 			], "basiclink")
 		], "row jcbetween margined padded bordered round");
 	},
+	_trusts: function(tlist) {
+//		return tlist.map(cat.util.trust) // <- old version (grid mode)
+		return tlist.map(function(t) {
+			var tick = CT.dom.div(null, "rightTick"),
+				dnode = cat.util.trust(t);
+			return [
+				tick,
+				CT.dom.link(t.name, function() {
+					dnode._expanded = !dnode._expanded;
+					tick.className = dnode._expanded ? "downTick" : "rightTick";
+					dnode.classList[dnode._expanded ? "add" : "remove"]("expanded");
+				}),
+				dnode
+			];
+		});
+	},
 	trusts: function(tnode) {
-		tnode = tnode || CT.dom.div();
+		tnode = tnode || CT.dom.div(null, "trusts");
 		CT.db.get("trust", function(tlist) {
 			CT.dom.setContent(tnode, tlist.length
-				? tlist.map(cat.util.trust)
+				? cat.util._trusts(tlist)
 				: "no trusts yet - go make one!");
 		}, null, null, null, {
 			member: user.core.get("key")
