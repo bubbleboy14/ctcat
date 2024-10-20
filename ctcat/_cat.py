@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from cantools.web import respond, succeed, fail, local, cgi_get, send_file, email_reportees
 from cantools.util import read, log
+from cantools import config
 from model import db, settings, buildTrust, getMem
 
 def response():
@@ -18,7 +19,7 @@ def response():
 			cgi_get("name", shield=True)), binary=True), detect=True)
 	elif action == "build":
 		iz = cgi_get("injections")
-		shield = local("shield")
+		shield = config.web.shield
 		if shield(iz["name"], local("ip"), fspath=True, count=False):
 			log('/_cat build - shield bounced "%s" for "%s"'%(ip, shield.ip(ip)["message"]))
 			fail()
