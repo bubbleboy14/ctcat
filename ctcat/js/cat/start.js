@@ -73,6 +73,7 @@ cat.start = {
 				name: "votes_to_entrust",
 				labeller: (oz) => CT.hover.auto("Specify the percentage of votes needed for your " + oz.admin + " to appoint a trustee or remove a trustee?", "Select the minimum vote percentage you'd like to appoint a trustee or remove a trustee. For example, imagine your 7-person Board is replacing a trustee. At the Board meeting, only 5 board members attended that morning.  If you select \"Majority of Voters\" and \"Present\", then only 3 yes votes are required to approve the trustee replacement.  But if you select \"3/4 of voters\" and \"Eligible\", then 6 votes would be necessary to approve the trustee replacement.", hovi),
 				style: "checkTree",
+				required: true,
 				single: true,
 				structure: [{
 					name: "Majority of voters",
@@ -108,6 +109,7 @@ cat.start = {
 				name: "votes_to_amend",
 				labeller: (oz) => CT.hover.auto("Specify the amount of votes needed for your " + oz.amender + " to amend the trust or revoke the trust?", "Select the minimum vote percentage you'd like to change the trust. For example, imagine your 7-person Board is cancelling the trust. At the Board meeting, only 5 board members attended that evening.  If you select \"Majority of Voters\" and \"Present\", then only 3 yes votes are required to cancel the trust.  But if you select \"3/4 of voters\" and \"Eligible\", then 6 votes would be necessary to cancel the trust.", hovi),
 				style: "checkTree",
+				required: true,
 				single: true,
 				structure: [{
 					name: "Majority of voters",
