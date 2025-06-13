@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from cantools.util import log, read, write, sed
-from ctman.util import h2l, h2x, pan, panflag
+from condox.util import h2l, h2x, pan, panflag
 try:
 	from model import db, settings, Trust
 except:
